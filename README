@@ -1,0 +1,5 @@
+Link Analysis
+
+Java web-application that provides the user with the following abilities:
+The user specifies the url of any page. Then application should determine
+how many images the page has.
