@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="exceptionTranslationInterceptor"
+        class="org.springframework.dao.support.PersistenceExceptionTranslationInterceptor" />
+
+  <bean id="abstractHibernateDao"
+        class="org.linkAnalysis.model.dao.hibernate.AbstractHibernateDao"
+        abstract="true">
+    <property name="sessionFactory" ref="sessionFactory"/>
+  </bean>
+  <!-- Declaration of DAO beans -->
+  <bean id="linkDao"
+        class="org.linkAnalysis.model.dao.hibernate.LinkHibernateDao"
+        parent="abstractHibernateDao" />
+  <bean id="imageDao"
+        class="org.linkAnalysis.model.dao.hibernate.ImageHibernateDao"
+        parent="abstractHibernateDao" />
+
+  <!-- Declaration and setting up datasource, sessionFactory and
+      transactionManager beans -->
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${jdbc.driverClassName}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+  </bean>
+
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="mappingResources">
+      <list>
+        <value>/org/linkAnalysis/model/entity/Link.hbm.xml</value>
+        <value>/org/linkAnalysis/model/entity/Image.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</prop>
+        <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+        <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+        <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+        <prop key="hibernate.connection.charset">${encoding}</prop>
+        <prop key="hibernate.connection.provider_class">${hibernate.connection.provider_class}</prop>
+        <prop key="hibernate.connection.release_mode">auto</prop>
+      </props>
+    </property>
+  </bean>
+
+  <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:/org/linkAnalysis/model/dataSource.properties" />
+  </bean>
+
+</beans>
