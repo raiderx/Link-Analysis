@@ -38,5 +38,5 @@ public interface Dao<T extends DomainEntity> {
      * @param id
      * @return
      */
-    T get(Long id);
+    T get(int id);
 }

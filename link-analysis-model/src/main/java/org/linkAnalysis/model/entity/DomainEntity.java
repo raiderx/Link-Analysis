@@ -9,16 +9,16 @@ import org.joda.time.DateTime;
  */
 public class DomainEntity {
 
-    private Long id;
+    private Integer id;
     private Integer version;
     private Boolean active;
     private DateTime creationDate;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

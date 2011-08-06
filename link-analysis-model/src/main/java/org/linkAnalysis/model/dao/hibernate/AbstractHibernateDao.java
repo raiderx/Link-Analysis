@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.linkAnalysis.model.dao.Dao;
 import org.linkAnalysis.model.entity.DomainEntity;
-import org.springframework.jmx.export.UnableToRegisterMBeanException;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -54,7 +53,7 @@ public abstract class AbstractHibernateDao<T extends DomainEntity>
         return true;
     }
 
-    public T get(Long id) {
+    public T get(int id) {
         return (T) getSession().get(type, id);
     }
 

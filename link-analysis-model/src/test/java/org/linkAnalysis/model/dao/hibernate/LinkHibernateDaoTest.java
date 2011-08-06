@@ -7,7 +7,6 @@ import org.joda.time.DateTime;
 import org.linkAnalysis.model.dao.LinkDao;
 import org.linkAnalysis.model.entity.Link;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -30,7 +29,7 @@ public class LinkHibernateDaoTest
 
     private final String SOME_HOST = "http://www.somehost.com";
     private final String SOME_NEW_HOST = "http://www.somenewhost.com";
-    private final long INVALID_LINK_ID = -567890L;
+    private final int INVALID_LINK_ID = -567890;
 
     @Autowired
     private LinkDao dao;
