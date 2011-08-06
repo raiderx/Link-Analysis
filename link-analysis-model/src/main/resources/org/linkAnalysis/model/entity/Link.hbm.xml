@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+  <class name="org.linkAnalysis.model.entity.Link" table="LINK">
+    <id name="id" column="LINK_ID" unsaved-value="0">
+      <generator class="native" />
+    </id>
+    <version name="version" />
+    <property name="active" type="boolean" column="IS_ACTIVE" not-null="true" />
+    <property name="creationDate" type="org.joda.time.contrib.hibernate.PersistentDateTime" column="CREATION_DATE" not-null="true" />
+
+    <property name="url" type="string" column="URL" not-null="true" />
+  </class>
+
+</hibernate-mapping>
