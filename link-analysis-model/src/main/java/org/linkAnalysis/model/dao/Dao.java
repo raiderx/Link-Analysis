@@ -25,7 +25,7 @@ public interface Dao<T extends DomainEntity> {
     void update(T entity);
 
     /**
-     * Removes the object by its id
+     * Removes the object
      *
      * @param entity
      * @return

@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.linkAnalysis.model.dao.LinkDao;
 import org.linkAnalysis.model.entity.Link;
+import org.linkAnalysis.model.search.LinkSearchCriteria;
+import org.linkAnalysis.model.search.SearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
@@ -27,9 +29,9 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 public class LinkHibernateDaoTest
         extends AbstractTransactionalTestNGSpringContextTests {
 
-    private final String SOME_HOST = "http://www.somehost.com";
-    private final String SOME_NEW_HOST = "http://www.somenewhost.com";
-    private final int INVALID_LINK_ID = -567890;
+    private static final String SOME_HOST = "http://www.somehost.com";
+    private static final String SOME_NEW_HOST = "http://www.somenewhost.com";
+    private static final int INVALID_LINK_ID = -567890;
 
     @Autowired
     private LinkDao dao;
@@ -136,5 +138,26 @@ public class LinkHibernateDaoTest
 
         Link result = (Link) session.get(Link.class, link.getId());
         assertReflectionEquals(link, result);
+    }
+
+    @Test
+    public void testGetLinksByCriteria() {
+        Link link = new Link();
+        link.setCreationDate(new DateTime());
+        link.setActive(true);
+        link.setUrl(SOME_HOST);
+        session.save(link);
+
+        link = new Link();
+        link.setCreationDate(new DateTime());
+        link.setActive(true);
+        link.setUrl(SOME_NEW_HOST);
+        session.save(link);
+
+        LinkSearchCriteria searchCriteria = new LinkSearchCriteria();
+        SearchResult<Link> result = dao.getLinksByCriteria(searchCriteria);
+
+        assertEquals(result.getPageCount(), 1);
+        assertEquals(result.getResult().size(), 2);
     }
 }

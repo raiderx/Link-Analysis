@@ -22,6 +22,7 @@ public abstract class AbstractHibernateDao<T extends DomainEntity>
                 .getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
+    @Override
     public void create(T entity) {
         if (null == entity)
             throw new IllegalArgumentException("Unable to create null object");
@@ -33,6 +34,7 @@ public abstract class AbstractHibernateDao<T extends DomainEntity>
         session.saveOrUpdate(entity);
     }
 
+    @Override
     public void update(T entity) {
         if (null == entity)
             throw new IllegalArgumentException("Unable to update null object");
@@ -42,6 +44,7 @@ public abstract class AbstractHibernateDao<T extends DomainEntity>
         session.saveOrUpdate(entity);
     }
 
+    @Override
     public boolean delete(T entity) {
         if (entity == null)
             throw new IllegalArgumentException("Unable to remove null object");
@@ -53,6 +56,7 @@ public abstract class AbstractHibernateDao<T extends DomainEntity>
         return true;
     }
 
+    @Override
     public T get(int id) {
         return (T) getSession().get(type, id);
     }
