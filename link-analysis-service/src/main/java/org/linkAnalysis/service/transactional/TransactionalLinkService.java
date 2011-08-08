@@ -25,11 +25,6 @@ public class TransactionalLinkService
     }
 
     @Override
-    public List<Link> getAll() {
-        return null;
-    }
-
-    @Override
     public SearchResult<Link> getLinksByCriteria(LinkSearchCriteria searchCriteria) {
         return dao.getLinksByCriteria(searchCriteria);
     }

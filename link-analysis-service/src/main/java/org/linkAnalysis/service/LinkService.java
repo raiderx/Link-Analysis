@@ -22,12 +22,5 @@ public interface LinkService extends EntityService<Link> {
      */
     String[] getImageUrlsForUrl(String url);
 
-    /**
-     * Returns the list of all links
-     *
-     * @return list of all links
-     */
-    List<Link> getAll();
-
     SearchResult<Link> getLinksByCriteria(LinkSearchCriteria searchCriteria);
 }
