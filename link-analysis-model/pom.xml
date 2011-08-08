@@ -55,6 +55,12 @@
       <groupId>joda-time</groupId>
       <artifactId>joda-time-hibernate</artifactId>
     </dependency>
+
+    <!-- JDBC -->
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+    </dependency>
     <!-- Testing -->
     <dependency>
       <groupId>org.testng</groupId>

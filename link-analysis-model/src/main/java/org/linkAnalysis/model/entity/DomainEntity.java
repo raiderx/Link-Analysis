@@ -14,22 +14,47 @@ public class DomainEntity {
     private Boolean active;
     private DateTime creationDate;
 
+    /**
+     * Returns unique identifier of this entity
+     *
+     * @return unique identifier of this entity
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets unique identifier of this entity
+     *
+     * @param id  unique identifier of this entity
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Returns version of this entity
+     *
+     * @return version value
+     */
     public Integer getVersion() {
         return version;
     }
 
+    /**
+     * Sets version of this entity
+     *
+     * @param version  version value
+     */
     public void setVersion(Integer version) {
         this.version = version;
     }
 
+    /**
+     * Returns the value
+     *
+     * @return
+     */
     public Boolean getActive() {
         return active;
     }
@@ -38,10 +63,20 @@ public class DomainEntity {
         this.active = active;
     }
 
+    /**
+     * Returns creation date of this entity
+     *
+     * @return creation date value
+     */
     public DateTime getCreationDate() {
         return creationDate;
     }
 
+    /**
+     * Sets creation date of this entity
+     *
+     * @param creationDate  creation date value
+     */
     public void setCreationDate(DateTime creationDate) {
         this.creationDate = creationDate;
     }

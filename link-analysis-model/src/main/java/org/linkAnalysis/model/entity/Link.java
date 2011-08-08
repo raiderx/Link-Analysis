@@ -8,18 +8,18 @@ public class Link extends DomainEntity {
     private String url;
 
     /**
-     * Returns the url of the link
+     * Returns url of the link
      *
-     * @return the url of the link
+     * @return url of the link
      */
     public String getUrl() {
         return url;
     }
 
     /**
-     * Sets the url of the link
+     * Sets url of the link
      *
-     * @param url  link url
+     * @param url  url of the link
      */
     public void setUrl(String url) {
         this.url = url;
