@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title> Links </title>
+    </head>
+    <body>
+        <h1> Links </h1>
+        <form action="#springUrl("/link/add.html")" method="POST">
+            <table>
+                <tr>
+                    <td> <label for="url" /> </td>
+                    <td> <input id="url" type="text" name="url" /> </td>
+                </tr>
+                <input type="submit" value="create" />
+            </table>
+        </form>
+    </body>
+</html>
