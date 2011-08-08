@@ -141,7 +141,7 @@ public class LinkHibernateDaoTest
     }
 
     @Test
-    public void testGetLinksByCriteria() {
+    public void testGetLinksByCriteriaWithEmptyFiler() {
         Link link = new Link();
         link.setCreationDate(new DateTime());
         link.setActive(true);
@@ -159,5 +159,39 @@ public class LinkHibernateDaoTest
 
         assertEquals(result.getPageCount(), 1);
         assertEquals(result.getResult().size(), 2);
+    }
+
+    @Test
+    public void testGetLinksByCriteria() {
+        Link someHostLink = new Link();
+        someHostLink.setCreationDate(new DateTime());
+        someHostLink.setActive(true);
+        someHostLink.setUrl(SOME_HOST);
+        session.save(someHostLink);
+
+        Link someNewHostLink = new Link();
+        someNewHostLink.setCreationDate(new DateTime());
+        someNewHostLink.setActive(true);
+        someNewHostLink.setUrl(SOME_NEW_HOST);
+        session.save(someNewHostLink);
+
+        LinkSearchCriteria searchCriteria = new LinkSearchCriteria();
+        Link link = new Link();
+        link.setUrl("somehost");
+        searchCriteria.setExample(link);
+        SearchResult<Link> result = dao.getLinksByCriteria(searchCriteria);
+
+        assertEquals(result.getPageCount(), 1);
+        assertEquals(result.getResult().size(), 1);
+        assertReflectionEquals(someHostLink, result.getResult().get(0));
+
+        link = new Link();
+        link.setUrl("somenewhost");
+        searchCriteria.setExample(link);
+        result = dao.getLinksByCriteria(searchCriteria);
+
+        assertEquals(result.getPageCount(), 1);
+        assertEquals(result.getResult().size(), 1);
+        assertReflectionEquals(someNewHostLink, result.getResult().get(0));
     }
 }
