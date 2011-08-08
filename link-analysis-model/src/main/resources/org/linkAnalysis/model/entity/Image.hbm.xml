@@ -12,6 +12,13 @@
 
     <many-to-one name="link" column="LINK_ID" foreign-key="FK_IMAGE_LINK_ID" not-null="true" />
     <property name="url" type="string" column="URL" not-null="true" />
+    <property name="downloaded" type="boolean" column="IS_DOWNLOADED" not-null="true" />
+    <property name="mimeType" type="string" column="MIME_TYPE" />
+    <property name="size" type="integer" column="SIZE" />
+    <property name="height" type="integer" column="HEIGHT" />
+    <property name="width" type="integer" column="WIDTH" />
+    <property name="name" type="string" column="NAME" />
+    <property name="extension" type="string" column="EXTENSION" />
   </class>
 
 </hibernate-mapping>
