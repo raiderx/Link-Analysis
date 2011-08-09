@@ -4,11 +4,41 @@
     <head>
         <title> Links </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link type="text/css" href="#springUrl("/js/jquery/jquery-ui-1.7.2.custom.css")" rel="stylesheet" />
+        <script type="text/javascript" src="#springUrl("/js/jquery-1.3.2.js")"></script>
+        <script type="text/javascript" src="#springUrl("/js/jquery.form-2.36.js")"></script>
+        <script type="text/javascript" src="#springUrl("/js/jquery/ui.core.js")"></script>
+        <script type="text/javascript" src="#springUrl("/js/jquery/ui.dialog.js")"></script>
+        <script type="text/javascript" src="#springUrl("/js/jquery/ui.draggable.js")"></script>
+        <script type="text/javascript" src="#springUrl("/js/jquery/ui.resizable.js")"></script>
+        <script type="text/javascript" src="#springUrl("/js/common.js")"></script>
+        <script type="text/javascript">
+
+            $(function() {
+                $("#addLink").click(function() {
+                    jQuery.ajaxDialog("addLinkDlg", "#springUrl("/link/add.html")", { width: 400, height: 300, onClose: onDlgClose });
+                });
+                $("#linkTable").ajaxTable({url: "#springUrl("/link/table.html")"});
+            });
+
+            /*function edit(id) {
+                jQuery.ajaxDialog("editLinkDlg", "#springUrl("/link/edit.html")?id=" + id, { width: 400, height: 300, onClose: onDlgClose });
+            }*/
+
+            function remove(id) {
+                jQuery.ajaxDialog("removeLinkDlg", "#springUrl("/link/remove.html")?id=" + id, { width: 400, height: 300, onClose: onDlgClose });
+            }
+
+            function onDlgClose() {
+                $("#linkTable").ajaxTable("reload");
+            }
+
+        </script>
     </head>
     <body>
         <h1> Links </h1>
 
-        <form action="#springUrl("/link/list.html")">
+        <form id="filterForm" action="#">
             <table>
                 <tr>
                     <td> URL: </td>
@@ -16,22 +46,12 @@
                     <td> </td>
                     <td> </td>
                 </tr> <tr>
-                    <td colspan="2"> </td>
+                    <td colspan="2"> <input id="addLink" type="button" value="Add" /> </td>
                     <td colspan="2"> <input type="submit" value="Apply" /> </td>
                 </tr>
-
             </table>
         </form>
 
-        <table>
-        #foreach ($link in ${linkList.result})
-            <tr>
-                <td> ${link.id} </td> <td> ${link.url} </td>
-            </tr>
-        #end
-        #if (${linkList.result.isEmpty()})
-            <tr> <td colspan="2"> No rows </td></tr>
-        #end
-        </table>
+        <div id="linkTable"> </div>
     </body>
 </html>

@@ -1,17 +1,24 @@
-<html>
-    <head>
-        <title> Links </title>
-    </head>
-    <body>
-        <h1> Links </h1>
-        <form action="#springUrl("/link/add.html")" method="POST">
-            <table>
-                <tr>
-                    <td> <label for="url" /> </td>
-                    <td> <input id="url" type="text" name="url" /> </td>
-                </tr>
-                <input type="submit" value="create" />
-            </table>
-        </form>
-    </body>
-</html>
+<script type="text/javascript">
+
+    function checkUrlAvailability(url) {
+        jQuery.ajaxHelper.performAjaxRequest(
+            "#springUrl("/link/checkLinkAvailability.html")",
+            { url: url },
+            { onSuccess: function(result) { alert(result); } });
+    }
+
+</script>
+
+<form class="dialogForm" action="#springUrl("/link/add.html")" method="post" width="400" height="300" title="Add link">
+    <table>
+        <tr>
+            <td> <label for="url" /> </td>
+            <td> <input id="url" type="text" name="url" /> </td>
+        </tr>
+    </table>
+</form>
+
+<div class="dialogButtonPane">
+    <input type="submit" value="Submit" onclick="checkUrlAvailability($('#url').val());"/>
+    <input type="button" value="Cancel" onclick="$('#addLinkDlg').dialog('close');"/>
+</div>

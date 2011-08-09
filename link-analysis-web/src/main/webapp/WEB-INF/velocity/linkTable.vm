@@ -1,0 +1,10 @@
+<table>
+#foreach ($link in ${linkList.result})
+    <tr>
+        <td> ${link.id} </td> <td> ${link.url} </td>
+    </tr>
+#end
+#if (${linkList.result.isEmpty()})
+    <tr> <td colspan="2"> No rows </td></tr>
+#end
+</table>
