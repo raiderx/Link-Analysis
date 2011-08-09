@@ -40,6 +40,10 @@
       <groupId>velocity</groupId>
       <artifactId>velocity</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+    </dependency>
     <!-- Testing -->
     <dependency>
       <groupId>org.testng</groupId>
