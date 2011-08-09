@@ -14,6 +14,18 @@ import java.util.List;
  */
 public interface LinkService extends EntityService<Link> {
 
+    SearchResult<Link> getLinksByCriteria(LinkSearchCriteria searchCriteria);
+
+    /**
+     * Checks if an url is available or not (404)
+     *
+     * @param url
+     * @return
+     */
+    ServiceResult<Boolean> isUrlAvailable(String url);
+
+    //void create(Link link);
+
     /**
      * Returns array of image urls in document for specified url
      *
@@ -22,5 +34,4 @@ public interface LinkService extends EntityService<Link> {
      */
     String[] getImageUrlsForUrl(String url);
 
-    SearchResult<Link> getLinksByCriteria(LinkSearchCriteria searchCriteria);
 }
