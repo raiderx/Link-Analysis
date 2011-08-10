@@ -1,0 +1,18 @@
+<form class="dialogForm" action="#springUrl("/link/analyze.html")" method="post" width="400" height="300" title="Analyze link">
+
+    <input type="hidden" name="linkId" value="${link.id}" />
+
+    <table>
+        <tr>
+            <td> Method: </td>
+            <td>
+                <input type="radio" name="method" value="simple" /> Simple <br />
+                <input type="radio" name="method" value="full" /> Full </td>
+        </tr>
+    </table>
+</form>
+
+<div class="dialogButtonPane">
+    <input type="submit" value="Submit" onclick="$('#analyzeLinkDlg').find('.dialogForm').trigger('submit');" />
+    <input type="button" value="Cancel" onclick="$('#analyzeLinkDlg').dialog('close');" />
+</div>

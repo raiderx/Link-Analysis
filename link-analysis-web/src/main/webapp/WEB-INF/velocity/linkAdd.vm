@@ -2,7 +2,7 @@
 
     function checkUrlAvailability(url) {
         jQuery.ajaxHelper.performAjaxRequest(
-            "#springUrl("/link/checkLinkAvailability.html")",
+            "#springUrl("/link/add.html")",
             { url: url },
             { onSuccess: function(result) { alert(result); } });
     }
@@ -12,13 +12,13 @@
 <form class="dialogForm" action="#springUrl("/link/add.html")" method="post" width="400" height="300" title="Add link">
     <table>
         <tr>
-            <td> <label for="url" /> </td>
+            <td> <label for="url"> Url: </label> </td>
             <td> <input id="url" type="text" name="url" /> </td>
         </tr>
     </table>
 </form>
 
 <div class="dialogButtonPane">
-    <input type="submit" value="Submit" onclick="checkUrlAvailability($('#url').val());"/>
-    <input type="button" value="Cancel" onclick="$('#addLinkDlg').dialog('close');"/>
+    <input type="submit" value="Submit" onclick="$('#addLinkDlg').find('.dialogForm').trigger('submit');" />
+    <input type="button" value="Cancel" onclick="$('#addLinkDlg').dialog('close');" />
 </div>

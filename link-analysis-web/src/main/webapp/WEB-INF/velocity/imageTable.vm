@@ -1,0 +1,35 @@
+<table class="uiTable">
+    <thead>
+        <tr>
+            <td> Link </td>
+            <td> URL </td>
+            <td> Downloaded </td>
+            <td> MIME Type </td>
+            <td> Size </td>
+            <td> Height </td>
+            <td> Width </td>
+            <td> Name </td>
+            <td> Extension </td>
+            <td> </td>
+        </tr>
+    </thead>
+    <tbody>
+    #foreach ($image in ${imageList.result})
+        <tr>
+            <td> ${image.link.url} </td>
+            <td> ${image.url} </td>
+            <td> ${image.downloaded} </td>
+            <td> ${image.mimeType} </td>
+            <td> ${image.size} </td>
+            <td> ${image.height} </td>
+            <td> ${image.width} </td>
+            <td> ${image.name} </td>
+            <td> ${image.extension} </td>
+            <td> <input type="button" value="Delete" /> </td>
+        </tr>
+    #end
+    #if (${imageList.result.isEmpty()})
+        <tr> <td colspan="10"> No rows selected </td> </tr>
+    #end
+    </tbody>
+</table>

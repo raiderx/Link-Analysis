@@ -1,10 +1,15 @@
 package org.linkAnalysis.web.controller;
 
+import org.linkAnalysis.model.dao.Dao;
+import org.linkAnalysis.model.entity.Link;
 import org.linkAnalysis.model.search.LinkSearchCriteria;
 import org.linkAnalysis.service.LinkService;
-import org.linkAnalysis.service.ServiceResult;
+import org.linkAnalysis.service.util.ServiceResult;
+import org.linkAnalysis.service.util.ValidationResult;
+import org.linkAnalysis.web.util.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,14 +19,15 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Pavel Karpukhin
  */
 @Controller
-public class LinkController {
+@RequestMapping(value = "/link")
+public class LinkController extends AbstractController {
 
     private LinkService linkService;
 
     /**
      * Constructs MVC controller with objects injected via autowiring
      *
-     * @param linkService an obejct taht provides actions on {@link Link} entity
+     * @param linkService an object that provides actions on {@link Link} entity
      */
     @Autowired
     public LinkController(LinkService linkService) {
@@ -33,25 +39,59 @@ public class LinkController {
      *
      * @return {@link ModelAndView} with view name as linkList
      */
-    @RequestMapping(value = "/link/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list() {
         return new ModelAndView("linkList");
     }
 
-    @RequestMapping(value = "/link/table")
+    @RequestMapping(value = "/table")
     public ModelAndView table(LinkSearchCriteria searchCriteria) {
         return new ModelAndView("linkTable", "linkList", linkService.getLinksByCriteria(searchCriteria));
     }
 
-    @RequestMapping(value = "/link/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add() {
         return new ModelAndView("linkAdd");
     }
 
-    @RequestMapping(value = "/link/checkLinkAvailability", method=RequestMethod.POST)
-    public @ResponseBody Boolean checkLinkAvailability(String url) {
-        ServiceResult<Boolean> res = linkService.isUrlAvailable(url);
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult add(final Link link) {
+        validationResult = new ValidationResult();
 
-        return res.isSucceed() && res.getResult() == true;
+        executeServiceMethod(new Invokable<Link>() {
+            @Override
+            public ServiceResult<Link> invoke() {
+                return linkService.create(link);
+            }
+        });
+        return ajaxResult();
+    }
+
+    @RequestMapping(value = "/analyze", method = RequestMethod.GET)
+    public ModelAndView analyze(int id) {
+        Link link = linkService.get(id);
+        return new ModelAndView("linkAnalyze", "link", link);
+    }
+
+    @RequestMapping(value = "/analyze", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResult analyze(final String method, final int linkId) {
+        validationResult = new ValidationResult();
+
+        if (method == null || method.isEmpty()) {
+            validationResult.addError("Choose the method");
+        } else {
+            final Link link = new Link();
+            link.setId(linkId);
+            executeServiceMethod(new Invokable<Link>() {
+                @Override
+                public ServiceResult<Link> invoke() {
+                    return linkService.analyzeLink(link, method);
+                }
+            });
+        }
+
+        return ajaxResult();
     }
 }

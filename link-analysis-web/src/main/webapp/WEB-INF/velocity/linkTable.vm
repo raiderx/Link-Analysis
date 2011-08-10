@@ -1,10 +1,17 @@
-<table>
-#foreach ($link in ${linkList.result})
-    <tr>
-        <td> ${link.id} </td> <td> ${link.url} </td>
-    </tr>
-#end
-#if (${linkList.result.isEmpty()})
-    <tr> <td colspan="2"> No rows </td></tr>
-#end
+<table class="uiTable">
+    <thead>
+        <tr>
+            <td> URL </td> <td> </td>
+        </tr>
+    </thead>
+    <tbody>
+    #foreach ($link in ${linkList.result})
+        <tr>
+            <td> ${link.url} </td> <td> <input type="button" value="Analyze" onclick="analyze(${link.id});" /> </td>
+        </tr>
+    #end
+    #if (${linkList.result.isEmpty()})
+        <tr> <td colspan="2"> No rows selected </td> </tr>
+    #end
+    </tbody>
 </table>

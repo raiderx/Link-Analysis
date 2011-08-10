@@ -2,7 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title> Links </title>
+        <title> Images </title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link type="text/css" href="#springUrl("/js/jquery/jquery-ui-1.7.2.custom.css")" rel="stylesheet" />
         <link type="text/css" href="#springUrl("/css/main.css")" rel="stylesheet" />
@@ -16,24 +16,17 @@
         <script type="text/javascript">
 
             $(function() {
-                $("#addLink").click(function() {
-                    jQuery.ajaxDialog("addLinkDlg", "#springUrl("/link/add.html")", { width: 400, height: 300, onClose: onDlgClose });
-                });
-                $("#linkTable").ajaxTable({url: "#springUrl("/link/table.html")"});
+                $("#imageTable").ajaxTable({url: "#springUrl("/image/table.html")"});
             });
 
-            function analyze(id) {
-                jQuery.ajaxDialog("analyzeLinkDlg", "#springUrl("/link/analyze.html")?id=" + id, { width: 400, height: 300, onClose: onDlgClose });
-            }
-
             function onDlgClose() {
-                $("#linkTable").ajaxTable("reload");
+                $("#imageTable").ajaxTable("reload");
             }
 
         </script>
     </head>
     <body>
-        <h1> Links </h1>
+        <h1> Images </h1>
 
         <form id="filterForm" action="#">
             <table width="100%">
@@ -43,12 +36,12 @@
                     <td align="right"> </td>
                     <td> </td>
                 </tr> <tr>
-                    <td colspan="2"> <input id="addLink" type="button" value="Add" /> </td>
+                    <td colspan="2"> </td>
                     <td colspan="2" align="right"> <input type="submit" value="Apply" /> </td>
                 </tr>
             </table>
         </form>
 
-        <div id="linkTable"> </div>
+        <div id="imageTable"> </div>
     </body>
 </html>
