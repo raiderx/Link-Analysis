@@ -32,6 +32,7 @@ public abstract class AbstractHibernateDao<T extends DomainEntity>
         entity.setCreationDate(new DateTime());
         Session session = getSession();
         session.saveOrUpdate(entity);
+        session.flush();
     }
 
     @Override
@@ -42,6 +43,7 @@ public abstract class AbstractHibernateDao<T extends DomainEntity>
             throw new IllegalStateException("Unable to update entity without id");
         Session session = getSession();
         session.saveOrUpdate(entity);
+        session.flush();
     }
 
     @Override
@@ -53,6 +55,7 @@ public abstract class AbstractHibernateDao<T extends DomainEntity>
         entity.setActive(false);
         Session session = getSession();
         session.saveOrUpdate(entity);
+        session.flush();
         return true;
     }
 

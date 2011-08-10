@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd"
+    default-autowire="byName">
 
   <bean id="exceptionTranslationInterceptor"
         class="org.springframework.dao.support.PersistenceExceptionTranslationInterceptor" />
@@ -10,7 +11,7 @@
   <bean id="abstractHibernateDao"
         class="org.linkAnalysis.model.dao.hibernate.AbstractHibernateDao"
         abstract="true">
-    <property name="sessionFactory" ref="sessionFactory"/>
+    <!--<property name="sessionFactory" ref="sessionFactory"/>-->
   </bean>
   <!-- Declaration of DAO beans -->
   <bean id="linkDao"
@@ -30,7 +31,7 @@
   </bean>
 
   <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-    <property name="dataSource" ref="dataSource" />
+    <!--<property name="dataSource" ref="dataSource" />-->
     <property name="mappingResources">
       <list>
         <value>/org/linkAnalysis/model/entity/Link.hbm.xml</value>
@@ -51,7 +52,7 @@
   </bean>
 
   <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-    <property name="sessionFactory" ref="sessionFactory" />
+    <!--<property name="sessionFactory" ref="sessionFactory" />-->
   </bean>
 
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
