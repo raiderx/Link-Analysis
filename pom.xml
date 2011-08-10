@@ -137,6 +137,12 @@
         <artifactId>jstl</artifactId>
         <version>1.2</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.htmlparser</groupId>
+        <artifactId>htmlparser</artifactId>
+        <version>1.6</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
