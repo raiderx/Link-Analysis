@@ -1,12 +1,11 @@
-package org.linkAnalysis.service;
+package org.linkAnalysis.service.util;
 
 /**
  * @author Pavel Karpukhin
  */
-public class ServiceResult<T> {
+public class ServiceResult<T> extends ValidationResult {
 
     private T result;
-    private boolean succeed;
 
     public ServiceResult(T result) {
         this(result, true);
@@ -19,7 +18,7 @@ public class ServiceResult<T> {
 
     public static <T> ServiceResult<T> fail(String errorMessage) {
         ServiceResult<T> serviceResult = new ServiceResult<T>(null, false);
-        //serviceResult.addError(errorMessage);
+        serviceResult.addError(errorMessage);
         return serviceResult;
     }
 
@@ -27,7 +26,4 @@ public class ServiceResult<T> {
         return result;
     }
 
-    public boolean isSucceed() {
-        return succeed;
-    }
 }

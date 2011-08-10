@@ -3,8 +3,7 @@ package org.linkAnalysis.service;
 import org.linkAnalysis.model.entity.Link;
 import org.linkAnalysis.model.search.LinkSearchCriteria;
 import org.linkAnalysis.model.search.SearchResult;
-
-import java.util.List;
+import org.linkAnalysis.service.util.ServiceResult;
 
 /**
  * This interface has methods which give us more abilities in
@@ -16,15 +15,9 @@ public interface LinkService extends EntityService<Link> {
 
     SearchResult<Link> getLinksByCriteria(LinkSearchCriteria searchCriteria);
 
-    /**
-     * Checks if an url is available or not (404)
-     *
-     * @param url
-     * @return
-     */
-    ServiceResult<Boolean> isUrlAvailable(String url);
+    ServiceResult<Link> create(Link link);
 
-    //void create(Link link);
+    ServiceResult<Link> analyzeLink(Link link, String method);
 
     /**
      * Returns array of image urls in document for specified url
