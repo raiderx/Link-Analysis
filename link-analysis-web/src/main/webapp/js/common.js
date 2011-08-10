@@ -6,9 +6,23 @@
 		
 		function onDialogOpen() {
 			function onSubmit(data, request, form) {
-				if (data) {
+
+                dialogHolder.find(":input").removeClass("input-validation-error");
+                dialogHolder.find(".error").remove();
+
+				if (data.succeed) {
 					dialogHolder.dialog("close");
-				}
+                    //$("#topMessage").text(data.globalMessages.join("\n"));
+				} else {
+                    if (data.globalErrors.length > 0) {
+                        $("<span/>").addClass("error globalErrors").html(data.globalErrors.join("\n")).prependTo(dialogHolder);
+                    }
+                    $.each(data.fieldErrors, function(name, value) {
+                        var el = form.find("#" + name.replace(".", "_").replace(/\[/g, "\\[").replace(/\]/g, "\\]"));
+                        el.addClass("input-validation-error");
+                        $("<div/>").addClass("error field-validation-error").text(value).appendTo(el.parent());
+                    });
+                }
 			}
 			
 			var form = dialogHolder.find(".dialogForm");
